@@ -61,6 +61,12 @@ func providerHasFlagInt64() []providerTypeHasFlagInt64 {
 			err:      nil,
 		},
 		{
+			flags:    52,
+			flag:     4,
+			expected: true,
+			err:      nil,
+		},
+		{
 			flags:    math.MinInt64,
 			flag:     31,
 			expected: false,

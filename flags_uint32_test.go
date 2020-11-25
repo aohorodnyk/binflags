@@ -248,25 +248,25 @@ func providerSetFlagUint32() []providerTypeSetFlagUint32 {
 			err:      nil,
 		},
 		{
+			flags:    235,
+			flag:     5,
+			val:      false,
+			expected: 203,
+			err:      nil,
+		},
+		{
+			flags:    62768,
+			flag:     12,
+			val:      false,
+			expected: 58672,
+			err:      nil,
+		},
+		{
 			flags:    5,
 			flag:     7,
 			val:      true,
 			expected: 133,
 			err:      nil,
-		},
-		{
-			flags:    5,
-			flag:     32,
-			val:      true,
-			expected: 5,
-			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
-		},
-		{
-			flags:    53,
-			flag:     35,
-			val:      false,
-			expected: 53,
-			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
 		},
 		{
 			flags:    128,
@@ -288,6 +288,20 @@ func providerSetFlagUint32() []providerTypeSetFlagUint32 {
 			val:      false,
 			expected: 0,
 			err:      nil,
+		},
+		{
+			flags:    3467463648,
+			flag:     26,
+			val:      false,
+			expected: 3400354784,
+			err:      nil,
+		},
+		{
+			flags:    5,
+			flag:     32,
+			val:      true,
+			expected: 5,
+			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
 		},
 	}
 }

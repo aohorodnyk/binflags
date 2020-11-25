@@ -61,6 +61,12 @@ func providerHasFlagInt32() []providerTypeHasFlagInt32 {
 			err:      nil,
 		},
 		{
+			flags:    52,
+			flag:     4,
+			expected: true,
+			err:      nil,
+		},
+		{
 			flags:    math.MinInt32,
 			flag:     31,
 			expected: true,
@@ -81,6 +87,12 @@ func providerHasFlagInt32() []providerTypeHasFlagInt32 {
 		{
 			flags:    -1,
 			flag:     7,
+			expected: true,
+			err:      nil,
+		},
+		{
+			flags:    -1,
+			flag:     31,
 			expected: true,
 			err:      nil,
 		},

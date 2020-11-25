@@ -143,7 +143,7 @@ func providerHasFlagUint8() []providerTypeHasFlagUint8 {
 			err:      nil,
 		},
 		{
-			flags:    64,
+			flags:    82,
 			flag:     6,
 			expected: true,
 			err:      nil,
@@ -253,25 +253,25 @@ func providerSetFlagUint8() []providerTypeSetFlagUint8 {
 			err:      nil,
 		},
 		{
-			flags:    5,
-			flag:     8,
-			val:      true,
-			expected: 5,
-			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
-		},
-		{
-			flags:    53,
-			flag:     10,
-			val:      false,
-			expected: 53,
-			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
-		},
-		{
 			flags:    128,
 			flag:     7,
 			val:      false,
 			expected: 0,
 			err:      nil,
+		},
+		{
+			flags:    235,
+			flag:     5,
+			val:      false,
+			expected: 203,
+			err:      nil,
+		},
+		{
+			flags:    5,
+			flag:     8,
+			val:      true,
+			expected: 5,
+			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
 		},
 	}
 }

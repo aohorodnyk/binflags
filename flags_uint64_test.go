@@ -145,6 +145,12 @@ func providerHasFlagUint64() []providerTypeHasFlagUint64 {
 			err:      nil,
 		},
 		{
+			flags:    822372036854775808,
+			flag:     59,
+			expected: true,
+			err:      nil,
+		},
+		{
 			flags:    math.MaxUint64,
 			flag:     0,
 			expected: true,
@@ -287,6 +293,27 @@ func providerSetFlagUint64() []providerTypeSetFlagUint64 {
 			err:      nil,
 		},
 		{
+			flags:    235,
+			flag:     5,
+			val:      false,
+			expected: 203,
+			err:      nil,
+		},
+		{
+			flags:    62768,
+			flag:     12,
+			val:      false,
+			expected: 58672,
+			err:      nil,
+		},
+		{
+			flags:    3467463648,
+			flag:     26,
+			val:      false,
+			expected: 3400354784,
+			err:      nil,
+		},
+		{
 			flags:    2147483648,
 			flag:     31,
 			val:      false,
@@ -298,6 +325,13 @@ func providerSetFlagUint64() []providerTypeSetFlagUint64 {
 			flag:     31,
 			val:      false,
 			expected: 0,
+			err:      nil,
+		},
+		{
+			flags:    822372036854775808,
+			flag:     59,
+			val:      false,
+			expected: 245911284551352320,
 			err:      nil,
 		},
 		{
@@ -308,10 +342,10 @@ func providerSetFlagUint64() []providerTypeSetFlagUint64 {
 			err:      nil,
 		},
 		{
-			flags:    5,
+			flags:    235234,
 			flag:     64,
 			val:      true,
-			expected: 5,
+			expected: 235234,
 			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
 		},
 	}

@@ -56,6 +56,12 @@ func providerHasFlagInt16() []providerTypeHasFlagInt16 {
 		},
 		{
 			flags:    52,
+			flag:     7,
+			expected: false,
+			err:      nil,
+		},
+		{
+			flags:    52,
 			flag:     15,
 			expected: false,
 			err:      nil,
