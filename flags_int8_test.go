@@ -1,6 +1,7 @@
 package gobitflags_test
 
 import (
+	"errors"
 	"fmt"
 	"github.com/aohorodnyk/gobitflags"
 	"github.com/stretchr/testify/assert"
@@ -83,6 +84,12 @@ func providerHasFlagInt8() []providerTypeHasFlagInt8 {
 			expected: true,
 			err:      nil,
 		},
+		{
+			flags:    -1,
+			flag:     8,
+			expected: false,
+			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
+		},
 	}
 }
 
@@ -150,6 +157,13 @@ func providerSetFlagInt8() []providerTypeSetFlagInt8 {
 			val:      false,
 			expected: 0,
 			err:      nil,
+		},
+		{
+			flags:    math.MinInt8,
+			flag:     8,
+			val:      false,
+			expected: math.MinInt8,
+			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
 		},
 	}
 }
