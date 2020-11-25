@@ -8,10 +8,10 @@ import (
 	"testing"
 )
 
-func TestHasFlagInt8(t *testing.T) {
-	for idx, prov := range providerHasFlagInt8() {
-		t.Run(fmt.Sprintf("TestHasFlagInt8_%d", idx), func(t *testing.T) {
-			actual, err := gobitflags.HasFlagInt8(prov.flags, prov.flag)
+func TestHasFlagInt16(t *testing.T) {
+	for idx, prov := range providerHasFlagInt16() {
+		t.Run(fmt.Sprintf("TestHasFlagInt16_%d", idx), func(t *testing.T) {
+			actual, err := gobitflags.HasFlagInt16(prov.flags, prov.flag)
 
 			assert.Equal(t, prov.expected, actual)
 			assert.Equal(t, prov.err, err)
@@ -19,10 +19,10 @@ func TestHasFlagInt8(t *testing.T) {
 	}
 }
 
-func TestSetFlagInt8(t *testing.T) {
-	for idx, prov := range providerSetFlagInt8() {
-		t.Run(fmt.Sprintf("TestSetFlagInt_8%d", idx), func(t *testing.T) {
-			actual, err := gobitflags.SetFlagInt8(prov.flags, prov.flag, prov.val)
+func TestSetFlagInt16(t *testing.T) {
+	for idx, prov := range providerSetFlagInt16() {
+		t.Run(fmt.Sprintf("TestSetFlagInt16_%d", idx), func(t *testing.T) {
+			actual, err := gobitflags.SetFlagInt16(prov.flags, prov.flag, prov.val)
 
 			assert.Equal(t, prov.expected, actual)
 			assert.Equal(t, prov.err, err)
@@ -30,23 +30,23 @@ func TestSetFlagInt8(t *testing.T) {
 	}
 }
 
-type providerTypeHasFlagInt8 struct {
-	flags    int8
+type providerTypeHasFlagInt16 struct {
+	flags    int16
 	flag     uint8
 	expected bool
 	err      error
 }
 
-type providerTypeSetFlagInt8 struct {
-	flags    int8
+type providerTypeSetFlagInt16 struct {
+	flags    int16
 	flag     uint8
 	val      bool
-	expected int8
+	expected int16
 	err      error
 }
 
-func providerHasFlagInt8() []providerTypeHasFlagInt8 {
-	return []providerTypeHasFlagInt8{
+func providerHasFlagInt16() []providerTypeHasFlagInt16 {
+	return []providerTypeHasFlagInt16{
 		{
 			flags:    0,
 			flag:     0,
@@ -55,19 +55,19 @@ func providerHasFlagInt8() []providerTypeHasFlagInt8 {
 		},
 		{
 			flags:    52,
-			flag:     7,
+			flag:     15,
 			expected: false,
 			err:      nil,
 		},
 		{
-			flags:    math.MinInt8,
-			flag:     7,
+			flags:    math.MinInt16,
+			flag:     15,
 			expected: true,
 			err:      nil,
 		},
 		{
-			flags:    math.MinInt8,
-			flag:     3,
+			flags:    math.MinInt16,
+			flag:     14,
 			expected: false,
 			err:      nil,
 		},
@@ -86,8 +86,8 @@ func providerHasFlagInt8() []providerTypeHasFlagInt8 {
 	}
 }
 
-func providerSetFlagInt8() []providerTypeSetFlagInt8 {
-	return []providerTypeSetFlagInt8{
+func providerSetFlagInt16() []providerTypeSetFlagInt16 {
+	return []providerTypeSetFlagInt16{
 		{
 			flags:    0,
 			flag:     0,
@@ -131,6 +131,13 @@ func providerSetFlagInt8() []providerTypeSetFlagInt8 {
 			err:      nil,
 		},
 		{
+			flags:    2567,
+			flag:     11,
+			val:      false,
+			expected: 519,
+			err:      nil,
+		},
+		{
 			flags:    -1,
 			flag:     5,
 			val:      false,
@@ -139,14 +146,14 @@ func providerSetFlagInt8() []providerTypeSetFlagInt8 {
 		},
 		{
 			flags:    -1,
-			flag:     7,
+			flag:     15,
 			val:      false,
-			expected: 127,
+			expected: 32767,
 			err:      nil,
 		},
 		{
-			flags:    math.MinInt8,
-			flag:     7,
+			flags:    math.MinInt16,
+			flag:     15,
 			val:      false,
 			expected: 0,
 			err:      nil,

@@ -11,7 +11,7 @@ import (
 
 func TestHasFlagUint16(t *testing.T) {
 	for idx, prov := range providerHasFlagUint16() {
-		t.Run(fmt.Sprintf("TestHasFlagUint8%d", idx), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TestHasFlagUint_8%d", idx), func(t *testing.T) {
 			actual, err := gobitflags.HasFlagUint16(prov.flags, prov.flag)
 
 			assert.Equal(t, prov.expected, actual)
@@ -22,7 +22,7 @@ func TestHasFlagUint16(t *testing.T) {
 
 func TestSetFlagUint16(t *testing.T) {
 	for idx, prov := range providerSetFlagUint16() {
-		t.Run(fmt.Sprintf("TestHasFlagUint8%d", idx), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TestHasFlagUint_8%d", idx), func(t *testing.T) {
 			actual, err := gobitflags.SetFlagUint16(prov.flags, prov.flag, prov.val)
 
 			assert.Equal(t, prov.expected, actual)
