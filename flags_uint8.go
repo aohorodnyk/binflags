@@ -13,7 +13,7 @@ func SetFlagByte(flags uint8, flag uint8, val bool) (uint8, error) {
 }
 
 func HasFlagUint8(flags uint8, flag uint8) (bool, error) {
-	if flag > FlagMaxUint8 {
+	if flag > FlagMaxInt8 {
 		return false, errors.New(ErrorMsgOutOfRange)
 	}
 
@@ -22,7 +22,7 @@ func HasFlagUint8(flags uint8, flag uint8) (bool, error) {
 }
 
 func SetFlagUint8(flags uint8, flag uint8, val bool) (uint8, error) {
-	if flag > FlagMaxUint8 {
+	if flag > FlagMaxInt8 {
 		return flags, errors.New(ErrorMsgOutOfRange)
 	}
 
