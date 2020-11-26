@@ -148,6 +148,13 @@ func providerSetFlagArrayUint16() []providerTypeSetFlagArrayUint16 {
 			err:      nil,
 		},
 		{
+			flags:    []uint16{65, 0},
+			flag:     31,
+			set:      true,
+			expected: []uint16{65, 32768},
+			err:      nil,
+		},
+		{
 			flags:    []uint16{65, 0, 1235, 724, 635},
 			flag:     50,
 			set:      true,
