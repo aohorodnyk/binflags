@@ -1,6 +1,7 @@
 package gobitflags_test
 
 import (
+	"errors"
 	"fmt"
 	"github.com/aohorodnyk/gobitflags"
 	"github.com/stretchr/testify/assert"
@@ -20,9 +21,10 @@ func TestHasFlagMapUint32(t *testing.T) {
 func TestSetFlagMapUint32(t *testing.T) {
 	for idx, prov := range providerSetFlagMapUint32() {
 		t.Run(fmt.Sprintf("TestHasFlagMapUint32_%d", idx), func(t *testing.T) {
-			gobitflags.SetFlagMapUint32(prov.flags, prov.flag, prov.set)
+			err := gobitflags.SetFlagMapUint32(prov.flags, prov.flag, prov.set)
 
 			assert.Equal(t, prov.expected, prov.flags)
+			assert.Equal(t, prov.err, err)
 		})
 	}
 }
@@ -38,6 +40,7 @@ type providerTypeSetFlagMapUint32 struct {
 	flag     uint64
 	set      bool
 	expected map[uint64]uint32
+	err      error
 }
 
 func providerHasFlagMapUint32() []providerTypeHasFlagMapUint32 {
@@ -117,18 +120,6 @@ func providerHasFlagMapUint32() []providerTypeHasFlagMapUint32 {
 
 func providerSetFlagMapUint32() []providerTypeSetFlagMapUint32 {
 	return []providerTypeSetFlagMapUint32{
-		{
-			flags:    nil,
-			flag:     0,
-			set:      false,
-			expected: nil,
-		},
-		{
-			flags:    nil,
-			flag:     0,
-			set:      true,
-			expected: nil,
-		},
 		{
 			flags: map[uint64]uint32{},
 			flag:  0,
@@ -233,6 +224,20 @@ func providerSetFlagMapUint32() []providerTypeSetFlagMapUint32 {
 				0:   2147500252,
 				163: 262144,
 			},
+		},
+		{
+			flags:    nil,
+			flag:     0,
+			set:      false,
+			expected: nil,
+			err:      errors.New(gobitflags.ErrorMsgFlagsMapNil),
+		},
+		{
+			flags:    nil,
+			flag:     0,
+			set:      true,
+			expected: nil,
+			err:      errors.New(gobitflags.ErrorMsgFlagsMapNil),
 		},
 	}
 }

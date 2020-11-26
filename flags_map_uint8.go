@@ -1,11 +1,13 @@
 package gobitflags
 
+import "errors"
+
 func HasFlagMapByte(flags map[uint64]uint8, flag uint64) bool {
 	return HasFlagMapUint8(flags, flag)
 }
 
-func SetFlagMapByte(flags map[uint64]uint8, flag uint64, val bool) {
-	SetFlagMapUint8(flags, flag, val)
+func SetFlagMapByte(flags map[uint64]uint8, flag uint64, val bool) error {
+	return SetFlagMapUint8(flags, flag, val)
 }
 
 func HasFlagMapUint8(flags map[uint64]uint8, flag uint64) bool {
@@ -20,13 +22,13 @@ func HasFlagMapUint8(flags map[uint64]uint8, flag uint64) bool {
 	return flagBits&conv == conv
 }
 
-func SetFlagMapUint8(flags map[uint64]uint8, flag uint64, set bool) {
+func SetFlagMapUint8(flags map[uint64]uint8, flag uint64, set bool) error {
 	if flags == nil {
-		return
+		return errors.New(ErrorMsgFlagsMapNil)
 	}
 
 	if HasFlagMapUint8(flags, flag) == set {
-		return
+		return nil
 	}
 
 	idx, bit := flagExt(flag, FlagMaxInt8)
@@ -39,4 +41,6 @@ func SetFlagMapUint8(flags map[uint64]uint8, flag uint64, set bool) {
 	} else if ok {
 		delete(flags, idx)
 	}
+
+	return nil
 }

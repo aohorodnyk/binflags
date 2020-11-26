@@ -1,5 +1,7 @@
 package gobitflags
 
+import "errors"
+
 func HasFlagMapInt64(flags map[uint64]int64, flag uint64) bool {
 	if len(flags) == 0 {
 		return false
@@ -12,13 +14,13 @@ func HasFlagMapInt64(flags map[uint64]int64, flag uint64) bool {
 	return flagBits&conv == conv
 }
 
-func SetFlagMapInt64(flags map[uint64]int64, flag uint64, set bool) {
+func SetFlagMapInt64(flags map[uint64]int64, flag uint64, set bool) error {
 	if flags == nil {
-		return
+		return errors.New(ErrorMsgFlagsMapNil)
 	}
 
 	if HasFlagMapInt64(flags, flag) == set {
-		return
+		return nil
 	}
 
 	idx, bit := flagExt(flag, FlagMaxInt64)
@@ -31,4 +33,6 @@ func SetFlagMapInt64(flags map[uint64]int64, flag uint64, set bool) {
 	} else if ok {
 		delete(flags, idx)
 	}
+
+	return nil
 }

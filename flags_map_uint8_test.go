@@ -1,6 +1,7 @@
 package gobitflags_test
 
 import (
+	"errors"
 	"fmt"
 	"github.com/aohorodnyk/gobitflags"
 	"github.com/stretchr/testify/assert"
@@ -30,9 +31,10 @@ func TestHasFlagMapByte(t *testing.T) {
 func TestSetFlagMapUint8(t *testing.T) {
 	for idx, prov := range providerSetFlagMapUint8() {
 		t.Run(fmt.Sprintf("TestHasFlagMapUint8_%d", idx), func(t *testing.T) {
-			gobitflags.SetFlagMapUint8(prov.flags, prov.flag, prov.set)
+			err := gobitflags.SetFlagMapUint8(prov.flags, prov.flag, prov.set)
 
 			assert.Equal(t, prov.expected, prov.flags)
+			assert.Equal(t, prov.err, err)
 		})
 	}
 }
@@ -40,9 +42,10 @@ func TestSetFlagMapUint8(t *testing.T) {
 func TestSetFlagMapByte(t *testing.T) {
 	for idx, prov := range providerSetFlagMapUint8() {
 		t.Run(fmt.Sprintf("TestHasFlagMapUint8_%d", idx), func(t *testing.T) {
-			gobitflags.SetFlagMapByte(prov.flags, prov.flag, prov.set)
+			err := gobitflags.SetFlagMapByte(prov.flags, prov.flag, prov.set)
 
 			assert.Equal(t, prov.expected, prov.flags)
+			assert.Equal(t, prov.err, err)
 		})
 	}
 }
@@ -58,6 +61,7 @@ type providerTypeSetFlagMapUint8 struct {
 	flag     uint64
 	set      bool
 	expected map[uint64]uint8
+	err      error
 }
 
 func providerHasFlagMapUint8() []providerTypeHasFlagMapUint8 {
@@ -169,18 +173,6 @@ func providerHasFlagMapUint8() []providerTypeHasFlagMapUint8 {
 func providerSetFlagMapUint8() []providerTypeSetFlagMapUint8 {
 	return []providerTypeSetFlagMapUint8{
 		{
-			flags:    nil,
-			flag:     0,
-			set:      false,
-			expected: nil,
-		},
-		{
-			flags:    nil,
-			flag:     0,
-			set:      true,
-			expected: nil,
-		},
-		{
 			flags: map[uint64]uint8{},
 			flag:  0,
 			set:   true,
@@ -283,6 +275,20 @@ func providerSetFlagMapUint8() []providerTypeSetFlagMapUint8 {
 				1:    56,
 				6235: 123,
 			},
+		},
+		{
+			flags:    nil,
+			flag:     0,
+			set:      false,
+			expected: nil,
+			err:      errors.New(gobitflags.ErrorMsgFlagsMapNil),
+		},
+		{
+			flags:    nil,
+			flag:     0,
+			set:      true,
+			expected: nil,
+			err:      errors.New(gobitflags.ErrorMsgFlagsMapNil),
 		},
 	}
 }

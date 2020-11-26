@@ -7,5 +7,4 @@ const FlagMaxInt64 uint8 = 63
 
 const ErrorMsgOutOfRange = "flag is out of range"
 const ErrorMsgFlagsArrayNil = "flags array is nil"
-
-//const ErrorMsgFlagsMapNil = "flags map is nil"
+const ErrorMsgFlagsMapNil = "flags map is nil"
