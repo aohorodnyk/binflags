@@ -8,10 +8,7 @@ func HasFlagMapUint16(flags map[uint64]uint16, flag uint64) bool {
 	}
 
 	idx, bit := flagExt(flag, FlagMaxInt16)
-	flagBits := flags[idx]
-
-	conv := uint16(1 << bit)
-	return flagBits&conv == conv
+	return HasFlagUint16(flags[idx], bit)
 }
 
 func SetFlagMapUint16(flags map[uint64]uint16, flag uint64, set bool) error {
@@ -24,10 +21,13 @@ func SetFlagMapUint16(flags map[uint64]uint16, flag uint64, set bool) error {
 	}
 
 	idx, bit := flagExt(flag, FlagMaxInt16)
-	flagBits, ok := flags[idx]
+	bits, ok := flags[idx]
 
-	conv := uint16(1 << bit)
-	ret := flagBits ^ conv
+	ret, err := SetFlagUint16(bits, bit, set)
+	if err != nil {
+		return err
+	}
+
 	if ret != 0 {
 		flags[idx] = ret
 	} else if ok {

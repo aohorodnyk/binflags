@@ -12,10 +12,7 @@ func HasFlagArrayInt8(flags []int8, flag uint64) bool {
 		return false
 	}
 
-	flagBits := flags[idx]
-
-	conv := int8(1 << bit)
-	return flagBits&conv == conv
+	return HasFlagInt8(flags[idx], bit)
 }
 
 func SetFlagArrayInt8(flags []int8, flag uint64, set bool) error {
@@ -32,10 +29,7 @@ func SetFlagArrayInt8(flags []int8, flag uint64, set bool) error {
 		return errors.New(ErrorMsgOutOfRange)
 	}
 
-	flagBits := flags[idx]
-
-	conv := int8(1 << bit)
-	flags[idx] = flagBits ^ conv
-
-	return nil
+	var err error
+	flags[idx], err = SetFlagInt8(flags[idx], bit, set)
+	return err
 }
