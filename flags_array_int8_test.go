@@ -85,6 +85,11 @@ func providerHasFlagArrayInt8() []providerTypeHasFlagArrayInt8 {
 			flag:     23,
 			expected: true,
 		},
+		{
+			flags:    []int8{0, 0, -39, 0},
+			flag:     24,
+			expected: false,
+		},
 	}
 }
 
