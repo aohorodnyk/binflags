@@ -10,8 +10,18 @@ import (
 
 func TestHasFlagArrayUint8(t *testing.T) {
 	for idx, prov := range providerHasFlagArrayUint8() {
-		t.Run(fmt.Sprintf("TestHasFlagMapUint8_%d", idx), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TestHasFlagArrayUint8_%d", idx), func(t *testing.T) {
 			actual := gobitflags.HasFlagArrayUint8(prov.flags, prov.flag)
+
+			assert.Equal(t, prov.expected, actual)
+		})
+	}
+}
+
+func TestHasFlagArrayByte(t *testing.T) {
+	for idx, prov := range providerHasFlagArrayUint8() {
+		t.Run(fmt.Sprintf("TestHasFlagArrayByte_%d", idx), func(t *testing.T) {
+			actual := gobitflags.HasFlagArrayByte(prov.flags, prov.flag)
 
 			assert.Equal(t, prov.expected, actual)
 		})
@@ -20,8 +30,19 @@ func TestHasFlagArrayUint8(t *testing.T) {
 
 func TestSetFlagArrayUint8(t *testing.T) {
 	for idx, prov := range providerSetFlagArrayUint8() {
-		t.Run(fmt.Sprintf("TestHasFlagMapUint8_%d", idx), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TestHasFlagArrayUint8_%d", idx), func(t *testing.T) {
 			err := gobitflags.SetFlagArrayUint8(prov.flags, prov.flag, prov.set)
+
+			assert.Equal(t, prov.expected, prov.flags)
+			assert.Equal(t, prov.err, err)
+		})
+	}
+}
+
+func TestSetFlagArrayByte(t *testing.T) {
+	for idx, prov := range providerSetFlagArrayUint8() {
+		t.Run(fmt.Sprintf("TestHasFlagArrayByte_%d", idx), func(t *testing.T) {
+			err := gobitflags.SetFlagArrayByte(prov.flags, prov.flag, prov.set)
 
 			assert.Equal(t, prov.expected, prov.flags)
 			assert.Equal(t, prov.err, err)
@@ -107,6 +128,13 @@ func providerSetFlagArrayUint8() []providerTypeSetFlagArrayUint8 {
 			flag:     6,
 			set:      true,
 			expected: []uint8{65},
+			err:      nil,
+		},
+		{
+			flags:    []uint8{65},
+			flag:     6,
+			set:      false,
+			expected: []uint8{1},
 			err:      nil,
 		},
 		{

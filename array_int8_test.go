@@ -10,7 +10,7 @@ import (
 
 func TestHasFlagArrayInt8(t *testing.T) {
 	for idx, prov := range providerHasFlagArrayInt8() {
-		t.Run(fmt.Sprintf("TestHasFlagMapInt8_%d", idx), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TestHasFlagArrayInt8_%d", idx), func(t *testing.T) {
 			actual := gobitflags.HasFlagArrayInt8(prov.flags, prov.flag)
 
 			assert.Equal(t, prov.expected, actual)
@@ -20,7 +20,7 @@ func TestHasFlagArrayInt8(t *testing.T) {
 
 func TestSetFlagArrayInt8(t *testing.T) {
 	for idx, prov := range providerSetFlagArrayInt8() {
-		t.Run(fmt.Sprintf("TestHasFlagMapInt8_%d", idx), func(t *testing.T) {
+		t.Run(fmt.Sprintf("TestHasFlagArrayInt8_%d", idx), func(t *testing.T) {
 			err := gobitflags.SetFlagArrayInt8(prov.flags, prov.flag, prov.set)
 
 			assert.Equal(t, prov.expected, prov.flags)

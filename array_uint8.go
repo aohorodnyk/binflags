@@ -2,6 +2,14 @@ package gobitflags
 
 import "errors"
 
+func HasFlagArrayByte(flags []byte, flag uint64) bool {
+	return HasFlagArrayUint8(flags, flag)
+}
+
+func SetFlagArrayByte(flags []uint8, flag uint64, set bool) error {
+	return SetFlagArrayUint8(flags, flag, set)
+}
+
 func HasFlagArrayUint8(flags []uint8, flag uint64) bool {
 	if len(flags) == 0 {
 		return false
