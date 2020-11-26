@@ -71,6 +71,11 @@ func providerHasFlagArrayUint32() []providerTypeHasFlagArrayUint32 {
 			expected: false,
 		},
 		{
+			flags:    []uint32{2147483713, 1, 0, 0},
+			flag:     31,
+			expected: true,
+		},
+		{
 			flags:    []uint32{0, 1, 0, 0},
 			flag:     32,
 			expected: true,
