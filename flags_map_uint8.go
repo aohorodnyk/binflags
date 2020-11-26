@@ -22,7 +22,7 @@ func HasFlagMapUint8(flags map[uint64]uint8, flag uint64) bool {
 
 func SetFlagMapUint8(flags map[uint64]uint8, flag uint64, set bool) {
 	if flags == nil {
-		flags = map[uint64]uint8{}
+		return
 	}
 
 	if HasFlagMapUint8(flags, flag) == set {

@@ -14,7 +14,7 @@ func HasFlagMapUint16(flags map[uint64]uint16, flag uint64) bool {
 
 func SetFlagMapUint16(flags map[uint64]uint16, flag uint64, set bool) {
 	if flags == nil {
-		flags = map[uint64]uint16{}
+		return
 	}
 
 	if HasFlagMapUint16(flags, flag) == set {
