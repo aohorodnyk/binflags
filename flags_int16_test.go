@@ -23,7 +23,7 @@ func TestHasFlagInt16(t *testing.T) {
 func TestSetFlagInt16(t *testing.T) {
 	for idx, prov := range providerSetFlagInt16() {
 		t.Run(fmt.Sprintf("TestSetFlagInt16_%d", idx), func(t *testing.T) {
-			actual, err := gobitflags.SetFlagInt16(prov.flags, prov.flag, prov.val)
+			actual, err := gobitflags.SetFlagInt16(prov.flags, prov.flag, prov.set)
 
 			assert.Equal(t, prov.expected, actual)
 			assert.Equal(t, prov.err, err)
@@ -41,7 +41,7 @@ type providerTypeHasFlagInt16 struct {
 type providerTypeSetFlagInt16 struct {
 	flags    int16
 	flag     uint8
-	val      bool
+	set      bool
 	expected int16
 	err      error
 }
@@ -104,77 +104,77 @@ func providerSetFlagInt16() []providerTypeSetFlagInt16 {
 		{
 			flags:    0,
 			flag:     0,
-			val:      false,
+			set:      false,
 			expected: 0,
 			err:      nil,
 		},
 		{
 			flags:    0,
 			flag:     0,
-			val:      true,
+			set:      true,
 			expected: 1,
 			err:      nil,
 		},
 		{
 			flags:    1,
 			flag:     1,
-			val:      true,
+			set:      true,
 			expected: 3,
 			err:      nil,
 		},
 		{
 			flags:    53,
 			flag:     1,
-			val:      true,
+			set:      true,
 			expected: 55,
 			err:      nil,
 		},
 		{
 			flags:    53,
 			flag:     0,
-			val:      false,
+			set:      false,
 			expected: 52,
 			err:      nil,
 		},
 		{
 			flags:    -1,
 			flag:     5,
-			val:      true,
+			set:      true,
 			expected: -1,
 			err:      nil,
 		},
 		{
 			flags:    2567,
 			flag:     11,
-			val:      false,
+			set:      false,
 			expected: 519,
 			err:      nil,
 		},
 		{
 			flags:    -1,
 			flag:     5,
-			val:      false,
+			set:      false,
 			expected: -33,
 			err:      nil,
 		},
 		{
 			flags:    -1,
 			flag:     15,
-			val:      false,
+			set:      false,
 			expected: 32767,
 			err:      nil,
 		},
 		{
 			flags:    math.MinInt16,
 			flag:     15,
-			val:      false,
+			set:      false,
 			expected: 0,
 			err:      nil,
 		},
 		{
 			flags:    math.MinInt16,
 			flag:     16,
-			val:      false,
+			set:      false,
 			expected: math.MinInt16,
 			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
 		},

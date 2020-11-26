@@ -27,10 +27,37 @@ func TestHasFlagMapByte(t *testing.T) {
 	}
 }
 
+func TestSetFlagMapUint8(t *testing.T) {
+	for idx, prov := range providerSetFlagMapUint8() {
+		t.Run(fmt.Sprintf("TestHasFlagMapUint8_%d", idx), func(t *testing.T) {
+			gobitflags.SetFlagMapUint8(prov.flags, prov.flag, prov.set)
+
+			assert.Equal(t, prov.expected, prov.flags)
+		})
+	}
+}
+
+func TestSetFlagMapByte(t *testing.T) {
+	for idx, prov := range providerSetFlagMapUint8() {
+		t.Run(fmt.Sprintf("TestHasFlagMapUint8_%d", idx), func(t *testing.T) {
+			gobitflags.SetFlagMapByte(prov.flags, prov.flag, prov.set)
+
+			assert.Equal(t, prov.expected, prov.flags)
+		})
+	}
+}
+
 type providerTypeHasFlagMapUint8 struct {
 	flags    map[uint64]uint8
 	flag     uint64
 	expected bool
+}
+
+type providerTypeSetFlagMapUint8 struct {
+	flags    map[uint64]uint8
+	flag     uint64
+	set      bool
+	expected map[uint64]uint8
 }
 
 func providerHasFlagMapUint8() []providerTypeHasFlagMapUint8 {
@@ -38,6 +65,21 @@ func providerHasFlagMapUint8() []providerTypeHasFlagMapUint8 {
 		{
 			flags:    map[uint64]uint8{},
 			flag:     0,
+			expected: false,
+		},
+		{
+			flags:    map[uint64]uint8{},
+			flag:     12425,
+			expected: false,
+		},
+		{
+			flags:    nil,
+			flag:     0,
+			expected: false,
+		},
+		{
+			flags:    nil,
+			flag:     12425,
 			expected: false,
 		},
 		{
@@ -120,6 +162,127 @@ func providerHasFlagMapUint8() []providerTypeHasFlagMapUint8 {
 			},
 			flag:     511,
 			expected: true,
+		},
+	}
+}
+
+func providerSetFlagMapUint8() []providerTypeSetFlagMapUint8 {
+	return []providerTypeSetFlagMapUint8{
+		{
+			flags:    nil,
+			flag:     0,
+			set:      false,
+			expected: nil,
+		},
+		{
+			flags:    nil,
+			flag:     0,
+			set:      true,
+			expected: nil,
+		},
+		{
+			flags: map[uint64]uint8{},
+			flag:  0,
+			set:   true,
+			expected: map[uint64]uint8{
+				0: 1,
+			},
+		},
+		{
+			flags: map[uint64]uint8{},
+			flag:  7,
+			set:   true,
+			expected: map[uint64]uint8{
+				0: 128,
+			},
+		},
+		{
+			flags: map[uint64]uint8{},
+			flag:  2346,
+			set:   true,
+			expected: map[uint64]uint8{
+				293: 4,
+			},
+		},
+		{
+			flags: map[uint64]uint8{
+				0: 92,
+			},
+			flag: 7,
+			set:  true,
+			expected: map[uint64]uint8{
+				0: 220,
+			},
+		},
+		{
+			flags: map[uint64]uint8{
+				0: 220,
+			},
+			flag: 7,
+			set:  false,
+			expected: map[uint64]uint8{
+				0: 92,
+			},
+		},
+		{
+			flags: map[uint64]uint8{
+				0:    220,
+				1:    56,
+				6:    32,
+				6235: 123,
+			},
+			flag: 48,
+			set:  true,
+			expected: map[uint64]uint8{
+				0:    220,
+				1:    56,
+				6:    33,
+				6235: 123,
+			},
+		},
+		{
+			flags: map[uint64]uint8{
+				0:    220,
+				1:    56,
+				6:    32,
+				6235: 123,
+			},
+			flag: 53,
+			set:  false,
+			expected: map[uint64]uint8{
+				0:    220,
+				1:    56,
+				6235: 123,
+			},
+		},
+		{
+			flags: map[uint64]uint8{
+				0:    220,
+				1:    56,
+				6235: 123,
+			},
+			flag: 53,
+			set:  true,
+			expected: map[uint64]uint8{
+				0:    220,
+				1:    56,
+				6:    32,
+				6235: 123,
+			},
+		},
+		{
+			flags: map[uint64]uint8{
+				0:    220,
+				1:    56,
+				6235: 123,
+			},
+			flag: 53,
+			set:  false,
+			expected: map[uint64]uint8{
+				0:    220,
+				1:    56,
+				6235: 123,
+			},
 		},
 	}
 }

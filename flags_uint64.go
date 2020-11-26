@@ -9,11 +9,11 @@ func HasFlagUint64(flags uint64, flag uint8) (bool, error) {
 		return false, errors.New(ErrorMsgOutOfRange)
 	}
 
-	var conv uint64 = 1 << flag
+	conv := uint64(1 << flag)
 	return flags&conv == conv, nil
 }
 
-func SetFlagUint64(flags uint64, flag uint8, val bool) (uint64, error) {
+func SetFlagUint64(flags uint64, flag uint8, set bool) (uint64, error) {
 	if flag > FlagMaxInt64 {
 		return flags, errors.New(ErrorMsgOutOfRange)
 	}
@@ -23,11 +23,11 @@ func SetFlagUint64(flags uint64, flag uint8, val bool) (uint64, error) {
 		return flags, err
 	}
 
-	if hasFlag == val {
+	if hasFlag == set {
 		return flags, nil
 	}
 
-	var conv uint64 = 1 << flag
+	conv := uint64(1 << flag)
 	ret := flags ^ conv
 	return ret, nil
 }

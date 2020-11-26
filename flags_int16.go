@@ -2,7 +2,6 @@ package gobitflags
 
 import (
 	"errors"
-	"math"
 )
 
 func HasFlagInt16(flags int16, flag uint8) (bool, error) {
@@ -10,11 +9,11 @@ func HasFlagInt16(flags int16, flag uint8) (bool, error) {
 		return false, errors.New(ErrorMsgOutOfRange)
 	}
 
-	conv := flagInt16(flag)
+	conv := int16(1 << flag)
 	return flags&conv == conv, nil
 }
 
-func SetFlagInt16(flags int16, flag uint8, val bool) (int16, error) {
+func SetFlagInt16(flags int16, flag uint8, set bool) (int16, error) {
 	if flag > FlagMaxInt16 {
 		return flags, errors.New(ErrorMsgOutOfRange)
 	}
@@ -24,20 +23,11 @@ func SetFlagInt16(flags int16, flag uint8, val bool) (int16, error) {
 		return flags, err
 	}
 
-	if hasFlag == val {
+	if hasFlag == set {
 		return flags, nil
 	}
 
-	conv := flagInt16(flag)
+	conv := int16(1 << flag)
 	ret := flags ^ conv
 	return ret, nil
-}
-
-func flagInt16(flag uint8) int16 {
-	var ret int16 = math.MinInt16
-	if flag < FlagMaxInt16 {
-		ret = 1 << flag
-	}
-
-	return ret
 }

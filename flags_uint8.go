@@ -8,8 +8,8 @@ func HasFlagByte(flags byte, flag uint8) (bool, error) {
 	return HasFlagUint8(flags, flag)
 }
 
-func SetFlagByte(flags uint8, flag uint8, val bool) (uint8, error) {
-	return SetFlagUint8(flags, flag, val)
+func SetFlagByte(flags uint8, flag uint8, set bool) (uint8, error) {
+	return SetFlagUint8(flags, flag, set)
 }
 
 func HasFlagUint8(flags uint8, flag uint8) (bool, error) {
@@ -17,11 +17,11 @@ func HasFlagUint8(flags uint8, flag uint8) (bool, error) {
 		return false, errors.New(ErrorMsgOutOfRange)
 	}
 
-	var conv uint8 = 1 << flag
+	conv := uint8(1 << flag)
 	return flags&conv == conv, nil
 }
 
-func SetFlagUint8(flags uint8, flag uint8, val bool) (uint8, error) {
+func SetFlagUint8(flags uint8, flag uint8, set bool) (uint8, error) {
 	if flag > FlagMaxInt8 {
 		return flags, errors.New(ErrorMsgOutOfRange)
 	}
@@ -31,11 +31,11 @@ func SetFlagUint8(flags uint8, flag uint8, val bool) (uint8, error) {
 		return flags, err
 	}
 
-	if hasFlag == val {
+	if hasFlag == set {
 		return flags, nil
 	}
 
-	var conv uint8 = 1 << flag
+	conv := uint8(1 << flag)
 	ret := flags ^ conv
 	return ret, nil
 }

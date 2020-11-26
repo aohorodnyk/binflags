@@ -23,7 +23,7 @@ func TestHasFlagUint16(t *testing.T) {
 func TestSetFlagUint16(t *testing.T) {
 	for idx, prov := range providerSetFlagUint16() {
 		t.Run(fmt.Sprintf("TestSetFlagUint16_%d", idx), func(t *testing.T) {
-			actual, err := gobitflags.SetFlagUint16(prov.flags, prov.flag, prov.val)
+			actual, err := gobitflags.SetFlagUint16(prov.flags, prov.flag, prov.set)
 
 			assert.Equal(t, prov.expected, actual)
 			assert.Equal(t, prov.err, err)
@@ -41,7 +41,7 @@ type providerTypeHasFlagUint16 struct {
 type providerTypeSetFlagUint16 struct {
 	flags    uint16
 	flag     uint8
-	val      bool
+	set      bool
 	expected uint16
 	err      error
 }
@@ -188,98 +188,98 @@ func providerSetFlagUint16() []providerTypeSetFlagUint16 {
 		{
 			flags:    0,
 			flag:     0,
-			val:      true,
+			set:      true,
 			expected: 1,
 			err:      nil,
 		},
 		{
 			flags:    0,
 			flag:     1,
-			val:      true,
+			set:      true,
 			expected: 2,
 			err:      nil,
 		},
 		{
 			flags:    0,
 			flag:     2,
-			val:      true,
+			set:      true,
 			expected: 4,
 			err:      nil,
 		},
 		{
 			flags:    1,
 			flag:     2,
-			val:      true,
+			set:      true,
 			expected: 5,
 			err:      nil,
 		},
 		{
 			flags:    53,
 			flag:     1,
-			val:      true,
+			set:      true,
 			expected: 55,
 			err:      nil,
 		},
 		{
 			flags:    53,
 			flag:     0,
-			val:      true,
+			set:      true,
 			expected: 53,
 			err:      nil,
 		},
 		{
 			flags:    math.MaxUint16,
 			flag:     2,
-			val:      true,
+			set:      true,
 			expected: math.MaxUint16,
 			err:      nil,
 		},
 		{
 			flags:    math.MaxUint16,
 			flag:     2,
-			val:      false,
+			set:      false,
 			expected: math.MaxUint16 - 4,
 			err:      nil,
 		},
 		{
 			flags:    5,
 			flag:     7,
-			val:      true,
+			set:      true,
 			expected: 133,
 			err:      nil,
 		},
 		{
 			flags:    128,
 			flag:     7,
-			val:      false,
+			set:      false,
 			expected: 0,
 			err:      nil,
 		},
 		{
 			flags:    235,
 			flag:     5,
-			val:      false,
+			set:      false,
 			expected: 203,
 			err:      nil,
 		},
 		{
 			flags:    62768,
 			flag:     12,
-			val:      false,
+			set:      false,
 			expected: 58672,
 			err:      nil,
 		},
 		{
 			flags:    32768,
 			flag:     15,
-			val:      false,
+			set:      false,
 			expected: 0,
 			err:      nil,
 		},
 		{
 			flags:    5,
 			flag:     16,
-			val:      true,
+			set:      true,
 			expected: 5,
 			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
 		},

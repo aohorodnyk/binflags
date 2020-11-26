@@ -9,22 +9,30 @@ func SetFlagMapByte(flags map[uint64]uint8, flag uint64, val bool) {
 }
 
 func HasFlagMapUint8(flags map[uint64]uint8, flag uint64) bool {
-	idx, bit := FlagMap(flag, FlagMaxInt8)
+	if len(flags) == 0 {
+		return false
+	}
+
+	idx, bit := flagExt(flag, FlagMaxInt8)
 	flagBits := flags[idx]
 
-	var conv uint8 = 1 << bit
+	conv := uint8(1 << bit)
 	return flagBits&conv == conv
 }
 
-func SetFlagMapUint8(flags map[uint64]uint8, flag uint64, val bool) {
-	if HasFlagMapUint8(flags, flag) == val {
+func SetFlagMapUint8(flags map[uint64]uint8, flag uint64, set bool) {
+	if flags == nil {
+		flags = map[uint64]uint8{}
+	}
+
+	if HasFlagMapUint8(flags, flag) == set {
 		return
 	}
 
-	idx, bit := FlagMap(flag, FlagMaxInt8)
+	idx, bit := flagExt(flag, FlagMaxInt8)
 	flagBits, ok := flags[idx]
 
-	var conv uint8 = 1 << bit
+	conv := uint8(1 << bit)
 	ret := flagBits ^ conv
 	if ret != 0 {
 		flags[idx] = ret

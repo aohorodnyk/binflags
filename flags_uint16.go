@@ -9,11 +9,11 @@ func HasFlagUint16(flags uint16, flag uint8) (bool, error) {
 		return false, errors.New(ErrorMsgOutOfRange)
 	}
 
-	var conv uint16 = 1 << flag
+	conv := uint16(1 << flag)
 	return flags&conv == conv, nil
 }
 
-func SetFlagUint16(flags uint16, flag uint8, val bool) (uint16, error) {
+func SetFlagUint16(flags uint16, flag uint8, set bool) (uint16, error) {
 	if flag > FlagMaxInt16 {
 		return flags, errors.New(ErrorMsgOutOfRange)
 	}
@@ -23,11 +23,11 @@ func SetFlagUint16(flags uint16, flag uint8, val bool) (uint16, error) {
 		return flags, err
 	}
 
-	if hasFlag == val {
+	if hasFlag == set {
 		return flags, nil
 	}
 
-	var conv uint16 = 1 << flag
+	conv := uint16(1 << flag)
 	ret := flags ^ conv
 	return ret, nil
 }
