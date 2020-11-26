@@ -138,13 +138,6 @@ func providerSetFlagArrayInt8() []providerTypeSetFlagArrayInt8 {
 			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
 		},
 		{
-			flags:    []int8{0, 0},
-			flag:     16,
-			set:      true,
-			expected: []int8{0, 0},
-			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
-		},
-		{
 			flags:    nil,
 			flag:     0,
 			set:      false,
