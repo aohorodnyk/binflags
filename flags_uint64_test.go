@@ -12,10 +12,9 @@ import (
 func TestHasFlagUint64(t *testing.T) {
 	for idx, prov := range providerHasFlagUint64() {
 		t.Run(fmt.Sprintf("TestHasFlagUint64_%d", idx), func(t *testing.T) {
-			actual, err := gobitflags.HasFlagUint64(prov.flags, prov.flag)
+			actual := gobitflags.HasFlagUint64(prov.flags, prov.flag)
 
 			assert.Equal(t, prov.expected, actual)
-			assert.Equal(t, prov.err, err)
 		})
 	}
 }
@@ -35,7 +34,6 @@ type providerTypeHasFlagUint64 struct {
 	flags    uint64
 	flag     uint8
 	expected bool
-	err      error
 }
 
 type providerTypeSetFlagUint64 struct {
@@ -52,163 +50,136 @@ func providerHasFlagUint64() []providerTypeHasFlagUint64 {
 			flags:    0,
 			flag:     0,
 			expected: false,
-			err:      nil,
 		},
 		{
 			flags:    0,
 			flag:     1,
 			expected: false,
-			err:      nil,
 		},
 		{
 			flags:    0,
 			flag:     3,
 			expected: false,
-			err:      nil,
 		},
 		{
 			flags:    0,
 			flag:     5,
 			expected: false,
-			err:      nil,
 		},
 		{
 			flags:    0,
 			flag:     7,
 			expected: false,
-			err:      nil,
 		},
 		{
 			flags:    2,
 			flag:     0,
 			expected: false,
-			err:      nil,
 		},
 		{
 			flags:    1,
 			flag:     0,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    3,
 			flag:     0,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    26,
 			flag:     1,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    26,
 			flag:     3,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    26,
 			flag:     4,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    128,
 			flag:     7,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    64,
 			flag:     6,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    30000,
 			flag:     4,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    30000,
 			flag:     14,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    30000,
 			flag:     3,
 			expected: false,
-			err:      nil,
 		},
 		{
 			flags:    822372036854775808,
 			flag:     59,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    math.MaxUint64,
 			flag:     0,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    math.MaxUint64,
 			flag:     1,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    math.MaxUint64,
 			flag:     3,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    math.MaxUint64,
 			flag:     5,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    math.MaxUint64,
 			flag:     7,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    math.MaxUint64,
 			flag:     15,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    math.MaxUint64,
 			flag:     31,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    math.MaxUint64,
 			flag:     53,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    math.MaxUint64,
 			flag:     63,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    math.MaxUint64,
 			flag:     64,
 			expected: false,
-			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
 		},
 	}
 }

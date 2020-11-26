@@ -12,10 +12,9 @@ import (
 func TestHasFlagInt16(t *testing.T) {
 	for idx, prov := range providerHasFlagInt16() {
 		t.Run(fmt.Sprintf("TestHasFlagInt16_%d", idx), func(t *testing.T) {
-			actual, err := gobitflags.HasFlagInt16(prov.flags, prov.flag)
+			actual := gobitflags.HasFlagInt16(prov.flags, prov.flag)
 
 			assert.Equal(t, prov.expected, actual)
-			assert.Equal(t, prov.err, err)
 		})
 	}
 }
@@ -35,7 +34,6 @@ type providerTypeHasFlagInt16 struct {
 	flags    int16
 	flag     uint8
 	expected bool
-	err      error
 }
 
 type providerTypeSetFlagInt16 struct {
@@ -52,49 +50,41 @@ func providerHasFlagInt16() []providerTypeHasFlagInt16 {
 			flags:    0,
 			flag:     0,
 			expected: false,
-			err:      nil,
 		},
 		{
 			flags:    52,
 			flag:     7,
 			expected: false,
-			err:      nil,
 		},
 		{
 			flags:    52,
 			flag:     15,
 			expected: false,
-			err:      nil,
 		},
 		{
 			flags:    math.MinInt16,
 			flag:     15,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    math.MinInt16,
 			flag:     14,
 			expected: false,
-			err:      nil,
 		},
 		{
 			flags:    -1,
 			flag:     3,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    -1,
 			flag:     7,
 			expected: true,
-			err:      nil,
 		},
 		{
 			flags:    -1,
 			flag:     16,
 			expected: false,
-			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
 		},
 	}
 }

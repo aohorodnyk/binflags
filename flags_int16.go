@@ -4,13 +4,13 @@ import (
 	"errors"
 )
 
-func HasFlagInt16(flags int16, flag uint8) (bool, error) {
+func HasFlagInt16(flags int16, flag uint8) bool {
 	if flag > FlagMaxInt16 {
-		return false, errors.New(ErrorMsgOutOfRange)
+		return false
 	}
 
 	conv := int16(1 << flag)
-	return flags&conv == conv, nil
+	return flags&conv == conv
 }
 
 func SetFlagInt16(flags int16, flag uint8, set bool) (int16, error) {
@@ -18,12 +18,7 @@ func SetFlagInt16(flags int16, flag uint8, set bool) (int16, error) {
 		return flags, errors.New(ErrorMsgOutOfRange)
 	}
 
-	hasFlag, err := HasFlagInt16(flags, flag)
-	if err != nil {
-		return flags, err
-	}
-
-	if hasFlag == set {
+	if HasFlagInt16(flags, flag) == set {
 		return flags, nil
 	}
 
