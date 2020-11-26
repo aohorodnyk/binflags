@@ -124,6 +124,13 @@ func providerSetFlagArrayInt8() []providerTypeSetFlagArrayInt8 {
 			err:      nil,
 		},
 		{
+			flags:    []int8{0, 0},
+			flag:     7,
+			set:      true,
+			expected: []int8{-128, 0},
+			err:      nil,
+		},
+		{
 			flags:    []int8{0},
 			flag:     8,
 			set:      true,
