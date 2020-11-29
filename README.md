@@ -18,15 +18,15 @@ After few time of implementation I made a decision to extract the feature into o
 
 ## Quick Architecture Review
 This library doesn't have any state. There're number of functions which have some standards in an implementation:
-1. All `has` functions return only `bool` even if a parameter(s) is not valid
-1. All `has` functions doesn't change parameters
-1. All `set` functions return `error`, if a parameter(s) is not valid
-1. All `set` functions for base types (like `int8`, `uint8`, `int64`, `uint64`) returns copy of flags from a function
-1. All `set` functions for an array (`[]uint64`)/map (`map[uint64]uint64`) types changes flags directly in a argument of the function
+1. Every `has` function returns only `bool` even if a parameter(s) is not valid
+1. Every `has` function doesn't change parameters
+1. Every `set` function returns `error`, if a parameter(s) is not valid
+1. Every `set` function for base types (like `int8`, `uint8`, `int64`, `uint64`) returns copy of flags from a function
+1. Every `set` function for an array types (`[]uint64`)/map (`map[uint64]uint64`) changes a flag directly in a argument of the function
 
 ## Known limitations
 There are known limitations:
-1. Go uses int64 as a key for an array types, it means that max size of array is `math.MaxInt64` or `9223372036854775807`, then the formula for max flag value in array flags is `9223372036854775807 * sizeof(type)`. `type` is a type for flags, like `int8`, `int16` ... `int64`.
+1. Go uses int64 as a key for array types, it means that max size of array is `math.MaxInt64` or `9223372036854775807`, then the formula for max flag value in array flags is `9223372036854775807 * sizeof(type)`. `type` is a type for flags, like `int8`, `int16` ... `int64`.
 
 ## Examples
 
