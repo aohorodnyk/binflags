@@ -41,6 +41,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Test
-        run: go test -race -coverprofile=coverage.txt -mod=vendor ./...
+        run: CGO_ENABLED=1 go test -race -coverprofile=coverage.txt -mod=vendor ./...
       - name: Code coverage
         run: bash <(curl -s https://codecov.io/bash)
