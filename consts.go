@@ -1,4 +1,4 @@
-package gobitflags
+package binflags
 
 const FlagMaxInt8 uint8 = 7
 const FlagMaxInt16 uint8 = 15

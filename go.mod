@@ -1,4 +1,4 @@
-module github.com/aohorodnyk/gobitflags
+module github.com/aohorodnyk/binflags
 
 go 1.14
 

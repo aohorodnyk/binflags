@@ -1,9 +1,9 @@
-package gobitflags_test
+package binflags_test
 
 import (
 	"errors"
 	"fmt"
-	"github.com/aohorodnyk/gobitflags"
+	"github.com/aohorodnyk/binflags"
 	"github.com/stretchr/testify/assert"
 	"math"
 	"testing"
@@ -12,7 +12,7 @@ import (
 func TestHasFlagInt8(t *testing.T) {
 	for idx, prov := range providerHasFlagInt8() {
 		t.Run(fmt.Sprintf("TestHasFlagInt8_%d", idx), func(t *testing.T) {
-			actual := gobitflags.HasFlagInt8(prov.flags, prov.flag)
+			actual := binflags.HasFlagInt8(prov.flags, prov.flag)
 
 			assert.Equal(t, prov.expected, actual)
 		})
@@ -22,7 +22,7 @@ func TestHasFlagInt8(t *testing.T) {
 func TestSetFlagInt8(t *testing.T) {
 	for idx, prov := range providerSetFlagInt8() {
 		t.Run(fmt.Sprintf("TestSetFlagInt8_%d", idx), func(t *testing.T) {
-			actual, err := gobitflags.SetFlagInt8(prov.flags, prov.flag, prov.set)
+			actual, err := binflags.SetFlagInt8(prov.flags, prov.flag, prov.set)
 
 			assert.Equal(t, prov.expected, actual)
 			assert.Equal(t, prov.err, err)
@@ -154,7 +154,7 @@ func providerSetFlagInt8() []providerTypeSetFlagInt8 {
 			flag:     8,
 			set:      false,
 			expected: math.MinInt8,
-			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
+			err:      errors.New(binflags.ErrorMsgOutOfRange),
 		},
 	}
 }

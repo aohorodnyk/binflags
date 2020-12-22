@@ -1,4 +1,4 @@
-package gobitflags
+package binflags
 
 func flagExt(flag uint64, size uint8) (uint64, uint8) {
 	bytes64 := uint64(size)

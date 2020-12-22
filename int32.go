@@ -1,4 +1,4 @@
-package gobitflags
+package binflags
 
 import (
 	"errors"

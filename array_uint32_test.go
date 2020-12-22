@@ -1,9 +1,9 @@
-package gobitflags_test
+package binflags_test
 
 import (
 	"errors"
 	"fmt"
-	"github.com/aohorodnyk/gobitflags"
+	"github.com/aohorodnyk/binflags"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -11,7 +11,7 @@ import (
 func TestHasFlagArrayUint32(t *testing.T) {
 	for idx, prov := range providerHasFlagArrayUint32() {
 		t.Run(fmt.Sprintf("TestHasFlagArrayUint32_%d", idx), func(t *testing.T) {
-			actual := gobitflags.HasFlagArrayUint32(prov.flags, prov.flag)
+			actual := binflags.HasFlagArrayUint32(prov.flags, prov.flag)
 
 			assert.Equal(t, prov.expected, actual)
 		})
@@ -21,7 +21,7 @@ func TestHasFlagArrayUint32(t *testing.T) {
 func TestSetFlagArrayUint32(t *testing.T) {
 	for idx, prov := range providerSetFlagArrayUint32() {
 		t.Run(fmt.Sprintf("TestHasFlagArrayUint32_%d", idx), func(t *testing.T) {
-			err := gobitflags.SetFlagArrayUint32(prov.flags, prov.flag, prov.set)
+			err := binflags.SetFlagArrayUint32(prov.flags, prov.flag, prov.set)
 
 			assert.Equal(t, prov.expected, prov.flags)
 			assert.Equal(t, prov.err, err)
@@ -183,14 +183,14 @@ func providerSetFlagArrayUint32() []providerTypeSetFlagArrayUint32 {
 			flag:     32,
 			set:      true,
 			expected: []uint32{0},
-			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
+			err:      errors.New(binflags.ErrorMsgOutOfRange),
 		},
 		{
 			flags:    nil,
 			flag:     0,
 			set:      false,
 			expected: nil,
-			err:      errors.New(gobitflags.ErrorMsgFlagsArrayNil),
+			err:      errors.New(binflags.ErrorMsgFlagsArrayNil),
 		},
 	}
 }
