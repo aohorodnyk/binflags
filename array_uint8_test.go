@@ -1,9 +1,9 @@
-package gobitflags_test
+package binflags_test
 
 import (
 	"errors"
 	"fmt"
-	"github.com/aohorodnyk/gobitflags"
+	"github.com/aohorodnyk/binflags"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -11,7 +11,7 @@ import (
 func TestHasFlagArrayUint8(t *testing.T) {
 	for idx, prov := range providerHasFlagArrayUint8() {
 		t.Run(fmt.Sprintf("TestHasFlagArrayUint8_%d", idx), func(t *testing.T) {
-			actual := gobitflags.HasFlagArrayUint8(prov.flags, prov.flag)
+			actual := binflags.HasFlagArrayUint8(prov.flags, prov.flag)
 
 			assert.Equal(t, prov.expected, actual)
 		})
@@ -21,7 +21,7 @@ func TestHasFlagArrayUint8(t *testing.T) {
 func TestHasFlagArrayByte(t *testing.T) {
 	for idx, prov := range providerHasFlagArrayUint8() {
 		t.Run(fmt.Sprintf("TestHasFlagArrayByte_%d", idx), func(t *testing.T) {
-			actual := gobitflags.HasFlagArrayByte(prov.flags, prov.flag)
+			actual := binflags.HasFlagArrayByte(prov.flags, prov.flag)
 
 			assert.Equal(t, prov.expected, actual)
 		})
@@ -31,7 +31,7 @@ func TestHasFlagArrayByte(t *testing.T) {
 func TestSetFlagArrayUint8(t *testing.T) {
 	for idx, prov := range providerSetFlagArrayUint8() {
 		t.Run(fmt.Sprintf("TestHasFlagArrayUint8_%d", idx), func(t *testing.T) {
-			err := gobitflags.SetFlagArrayUint8(prov.flags, prov.flag, prov.set)
+			err := binflags.SetFlagArrayUint8(prov.flags, prov.flag, prov.set)
 
 			assert.Equal(t, prov.expected, prov.flags)
 			assert.Equal(t, prov.err, err)
@@ -42,7 +42,7 @@ func TestSetFlagArrayUint8(t *testing.T) {
 func TestSetFlagArrayByte(t *testing.T) {
 	for idx, prov := range providerSetFlagArrayUint8() {
 		t.Run(fmt.Sprintf("TestHasFlagArrayByte_%d", idx), func(t *testing.T) {
-			err := gobitflags.SetFlagArrayByte(prov.flags, prov.flag, prov.set)
+			err := binflags.SetFlagArrayByte(prov.flags, prov.flag, prov.set)
 
 			assert.Equal(t, prov.expected, prov.flags)
 			assert.Equal(t, prov.err, err)
@@ -163,14 +163,14 @@ func providerSetFlagArrayUint8() []providerTypeSetFlagArrayUint8 {
 			flag:     8,
 			set:      true,
 			expected: []uint8{0},
-			err:      errors.New(gobitflags.ErrorMsgOutOfRange),
+			err:      errors.New(binflags.ErrorMsgOutOfRange),
 		},
 		{
 			flags:    nil,
 			flag:     0,
 			set:      false,
 			expected: nil,
-			err:      errors.New(gobitflags.ErrorMsgFlagsArrayNil),
+			err:      errors.New(binflags.ErrorMsgFlagsArrayNil),
 		},
 	}
 }
