@@ -6,7 +6,7 @@
 * [Examples](#examples)
 * [Contributing](#contributing)
 
-![Test](https://github.com/aohorodnyk/binflags/workflows/Test/badge.svg) ![golangci-lint](https://github.com/aohorodnyk/binflags/workflows/golangci-lint/badge.svg)
+[![Codecov](https://codecov.io/gh/aohorodnyk/binflags/branch/main/graph/badge.svg?token=61SCDABJJ0)](https://codecov.io/gh/aohorodnyk/binflags) ![Test](https://github.com/aohorodnyk/binflags/workflows/Test/badge.svg) ![Lint](https://github.com/aohorodnyk/binflags/workflows/Lint/badge.svg)
 
 ## Motivation
 There are number of needs to implement bitset for various types, and some "Big Flags" implementation through map or array of INTs.
