@@ -1,4 +1,4 @@
-name: Test
+name: Code coverage
 on: [push]
 jobs:
   test-ubuntu-mac:
