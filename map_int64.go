@@ -1,19 +1,18 @@
 package binflags
 
-import "errors"
-
 func HasFlagMapInt64(flags map[uint64]int64, flag uint64) bool {
 	if len(flags) == 0 {
 		return false
 	}
 
 	idx, bit := flagExt(flag, FlagMaxInt64)
+
 	return HasFlagInt64(flags[idx], bit)
 }
 
 func SetFlagMapInt64(flags map[uint64]int64, flag uint64, set bool) error {
 	if flags == nil {
-		return errors.New(ErrorMsgFlagsMapNil)
+		return ErrorFlagsMapNil(ErrorMsgFlagsMapNil)
 	}
 
 	if HasFlagMapInt64(flags, flag) == set {

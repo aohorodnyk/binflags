@@ -1,7 +1,5 @@
 package binflags
 
-import "errors"
-
 func HasFlagArrayInt8(flags []int8, flag uint64) bool {
 	if len(flags) == 0 {
 		return false
@@ -17,7 +15,7 @@ func HasFlagArrayInt8(flags []int8, flag uint64) bool {
 
 func SetFlagArrayInt8(flags []int8, flag uint64, set bool) error {
 	if flags == nil {
-		return errors.New(ErrorMsgFlagsArrayNil)
+		return ErrorFlagsArrayNil(ErrorMsgFlagsArrayNil)
 	}
 
 	if HasFlagArrayInt8(flags, flag) == set {
@@ -26,10 +24,11 @@ func SetFlagArrayInt8(flags []int8, flag uint64, set bool) error {
 
 	idx, bit := flagExt(flag, FlagMaxInt8)
 	if len(flags) <= int(idx) {
-		return errors.New(ErrorMsgOutOfRange)
+		return ErrorOutOfRange(ErrorMsgOutOfRange)
 	}
 
 	var err error
 	flags[idx], err = SetFlagInt8(flags[idx], bit, set)
+
 	return err
 }
