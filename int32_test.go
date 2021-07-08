@@ -1,42 +1,60 @@
 package binflags_test
 
 import (
-	"errors"
-	"fmt"
-	"github.com/aohorodnyk/binflags"
-	"github.com/stretchr/testify/assert"
 	"math"
+	"reflect"
 	"testing"
+
+	"github.com/aohorodnyk/binflags"
 )
 
 func TestHasFlagInt32(t *testing.T) {
-	for idx, prov := range providerHasFlagInt32() {
-		t.Run(fmt.Sprintf("TestHasFlagInt32_%d", idx), func(t *testing.T) {
+	t.Parallel()
+
+	for _, prov := range providerHasFlagInt32() {
+		prov := prov
+		t.Run(prov.name, func(t *testing.T) {
+			t.Parallel()
+
 			actual := binflags.HasFlagInt32(prov.flags, prov.flag)
 
-			assert.Equal(t, prov.expected, actual)
+			if prov.expected != actual {
+				t.Fatalf("Unexpected result.\nExpected: %t\nActual: %t", prov.expected, actual)
+			}
 		})
 	}
 }
 
 func TestSetFlagInt32(t *testing.T) {
-	for idx, prov := range providerSetFlagInt32() {
-		t.Run(fmt.Sprintf("TestSetFlagInt32_%d", idx), func(t *testing.T) {
+	t.Parallel()
+
+	for _, prov := range providerSetFlagInt32() {
+		prov := prov
+		t.Run(prov.name, func(t *testing.T) {
+			t.Parallel()
+
 			actual, err := binflags.SetFlagInt32(prov.flags, prov.flag, prov.set)
 
-			assert.Equal(t, prov.expected, actual)
-			assert.Equal(t, prov.err, err)
+			if !reflect.DeepEqual(prov.err, err) {
+				t.Fatalf("Unexpected error.\nExpected: %T(%v)\nActual: %T(%v)", prov.err, prov.err, err, err)
+			}
+
+			if prov.expected != actual {
+				t.Fatalf("Unexpected result.\nExpected: %d\nActual: %d", prov.expected, actual)
+			}
 		})
 	}
 }
 
 type providerTypeHasFlagInt32 struct {
+	name     string
 	flags    int32
 	flag     uint8
 	expected bool
 }
 
 type providerTypeSetFlagInt32 struct {
+	name     string
 	flags    int32
 	flag     uint8
 	set      bool
@@ -47,46 +65,55 @@ type providerTypeSetFlagInt32 struct {
 func providerHasFlagInt32() []providerTypeHasFlagInt32 {
 	return []providerTypeHasFlagInt32{
 		{
+			name:     "Flags 0, flag 0",
 			flags:    0,
 			flag:     0,
 			expected: false,
 		},
 		{
+			name:     "Flags 52, flag 15",
 			flags:    52,
 			flag:     15,
 			expected: false,
 		},
 		{
+			name:     "Flags 52, flag 4",
 			flags:    52,
 			flag:     4,
 			expected: true,
 		},
 		{
+			name:     "Flags -2147483648, flag 31",
 			flags:    math.MinInt32,
 			flag:     31,
 			expected: true,
 		},
 		{
+			name:     "Flags -2147483648, flag 14",
 			flags:    math.MinInt32,
 			flag:     14,
 			expected: false,
 		},
 		{
+			name:     "Flags -1, flag 3",
 			flags:    -1,
 			flag:     3,
 			expected: true,
 		},
 		{
+			name:     "Flags -1, flag 7",
 			flags:    -1,
 			flag:     7,
 			expected: true,
 		},
 		{
+			name:     "Flags -1, flag 31",
 			flags:    -1,
 			flag:     31,
 			expected: true,
 		},
 		{
+			name:     "Flags -1, flag 32",
 			flags:    -1,
 			flag:     32,
 			expected: false,
@@ -97,6 +124,7 @@ func providerHasFlagInt32() []providerTypeHasFlagInt32 {
 func providerSetFlagInt32() []providerTypeSetFlagInt32 {
 	return []providerTypeSetFlagInt32{
 		{
+			name:     "Flags 0, flag 0, unset",
 			flags:    0,
 			flag:     0,
 			set:      false,
@@ -104,6 +132,7 @@ func providerSetFlagInt32() []providerTypeSetFlagInt32 {
 			err:      nil,
 		},
 		{
+			name:     "Flags 0, flag 0, set",
 			flags:    0,
 			flag:     0,
 			set:      true,
@@ -111,6 +140,7 @@ func providerSetFlagInt32() []providerTypeSetFlagInt32 {
 			err:      nil,
 		},
 		{
+			name:     "Flags 1, flag 1, set",
 			flags:    1,
 			flag:     1,
 			set:      true,
@@ -118,6 +148,7 @@ func providerSetFlagInt32() []providerTypeSetFlagInt32 {
 			err:      nil,
 		},
 		{
+			name:     "Flags 53, flag 1, set",
 			flags:    53,
 			flag:     1,
 			set:      true,
@@ -125,6 +156,7 @@ func providerSetFlagInt32() []providerTypeSetFlagInt32 {
 			err:      nil,
 		},
 		{
+			name:     "Flags 53, flag 0, unset",
 			flags:    53,
 			flag:     0,
 			set:      false,
@@ -132,6 +164,7 @@ func providerSetFlagInt32() []providerTypeSetFlagInt32 {
 			err:      nil,
 		},
 		{
+			name:     "Flags -1, flag 5, set",
 			flags:    -1,
 			flag:     5,
 			set:      true,
@@ -139,6 +172,7 @@ func providerSetFlagInt32() []providerTypeSetFlagInt32 {
 			err:      nil,
 		},
 		{
+			name:     "Flags 2567, flag 11, unset",
 			flags:    2567,
 			flag:     11,
 			set:      false,
@@ -146,6 +180,7 @@ func providerSetFlagInt32() []providerTypeSetFlagInt32 {
 			err:      nil,
 		},
 		{
+			name:     "Flags -1, flag 5, unset",
 			flags:    -1,
 			flag:     5,
 			set:      false,
@@ -153,6 +188,7 @@ func providerSetFlagInt32() []providerTypeSetFlagInt32 {
 			err:      nil,
 		},
 		{
+			name:     "Flags -1, flag 31, unset",
 			flags:    -1,
 			flag:     31,
 			set:      false,
@@ -160,6 +196,7 @@ func providerSetFlagInt32() []providerTypeSetFlagInt32 {
 			err:      nil,
 		},
 		{
+			name:     "Flags -2147483648, flag 31, unset",
 			flags:    math.MinInt32,
 			flag:     31,
 			set:      false,
@@ -167,11 +204,12 @@ func providerSetFlagInt32() []providerTypeSetFlagInt32 {
 			err:      nil,
 		},
 		{
+			name:     "Flags -2147483648, flag 32, set",
 			flags:    math.MinInt32,
 			flag:     32,
 			set:      true,
 			expected: math.MinInt32,
-			err:      errors.New(binflags.ErrorMsgOutOfRange),
+			err:      binflags.ErrorOutOfRange(binflags.ErrorMsgOutOfRange),
 		},
 	}
 }

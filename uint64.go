@@ -1,21 +1,18 @@
 package binflags
 
-import (
-	"errors"
-)
-
 func HasFlagUint64(flags uint64, flag uint8) bool {
 	if flag > FlagMaxInt64 {
 		return false
 	}
 
 	conv := uint64(1 << flag)
+
 	return flags&conv == conv
 }
 
 func SetFlagUint64(flags uint64, flag uint8, set bool) (uint64, error) {
 	if flag > FlagMaxInt64 {
-		return flags, errors.New(ErrorMsgOutOfRange)
+		return flags, ErrorOutOfRange(ErrorMsgOutOfRange)
 	}
 
 	if HasFlagUint64(flags, flag) == set {
@@ -24,5 +21,6 @@ func SetFlagUint64(flags uint64, flag uint8, set bool) (uint64, error) {
 
 	conv := uint64(1 << flag)
 	ret := flags ^ conv
+
 	return ret, nil
 }
