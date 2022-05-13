@@ -9,7 +9,7 @@
 [![Codecov](https://codecov.io/gh/aohorodnyk/binflags/branch/main/graph/badge.svg?token=61SCDABJJ0)](https://codecov.io/gh/aohorodnyk/binflags) ![Test](https://github.com/aohorodnyk/binflags/workflows/Test/badge.svg) ![Lint](https://github.com/aohorodnyk/binflags/workflows/Lint/badge.svg)
 
 ## Golang 1.18
-If you are using Golang version 1.18 and above, I'll suggest to use [binflags](https://pkg.go.dev/github.com/aohorodnyk/stl/collections/binflags) package from [STL](https://pkg.go.dev/github.com/aohorodnyk/stl) library.
+If you use Golang version 1.18 and above, I'll suggest to use [binflags](https://pkg.go.dev/github.com/aohorodnyk/stl/collections/binflags) package from [STL](https://pkg.go.dev/github.com/aohorodnyk/stl) library.
 
 ## Motivation
 There are number of needs to implement bitset for various types, and some "Big Flags" implementation through map or array of INTs.
