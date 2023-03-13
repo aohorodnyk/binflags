@@ -1,72 +1,46 @@
 run:
   modules-download-mode: readonly # Do not update dependencies.
-
 linters-settings:
-  gocritic:
-    enabled-tags:
-      - diagnostic
-      - experimental
-      - opinionated
-      - performance
-      - style
-    disabled-checks:
-      - dupImport # https://github.com/go-critic/go-critic/issues/845
-  gomnd:
-    settings:
-      mnd:
-        # don't include the "operation" and "assign"
-        checks:
-          - argument
-          - case
-          - condition
-          - return
-  lll:
-    line-length: 160
-  maligned:
-    suggest-new: true
-  misspell:
-    locale: US
-  staticcheck:
-    go: "1.16"
-  gosimple:
-    go: "1.16"
-  stylecheck:
-    go: "1.16"
-  unused:
-    go: "1.16"
-
+  varnamelen:
+    min-name-length: 2
 linters:
-  # please, do not use `enable-all`: it's deprecated and will be removed soon.
-  # inverted configuration with `enable-all` and `disable` is not scalable during updates of golangci-lint
   disable-all: true
   enable:
     # Default linters
-    - deadcode
     - errcheck
     - gosimple
     - govet
     - ineffassign
     - staticcheck
-    - structcheck
     - typecheck
     - unused
-    - varcheck
     # Additional linters
+    - asasalint
     - asciicheck
+    - bidichk
     - bodyclose
+    - containedctx
+    - contextcheck
     - cyclop
+    - decorder
     - depguard
     - dogsled
     - dupl
+    - dupword
     - durationcheck
+    - errchkjson
+    - errname
     - errorlint
+    - execinquery
     - exhaustive
-    # - exhaustivestruct
+    - exhaustruct
     - exportloopref
     - forbidigo
     - forcetypeassert
     - funlen
     - gci
+    # - ginkgolinter # Will be enabled in 1.51.
+    # - gocheckcompilerdirectives # Will be enabled in 1.51.
     - gochecknoglobals
     - gochecknoinits
     - gocognit
@@ -78,47 +52,79 @@ linters:
     - goerr113
     - gofmt
     - gofumpt
-    - goheader # Configure it
+    - goheader
     - goimports
     - gomnd
     - gomoddirectives
     - gomodguard
     - goprintffuncname
     - gosec
+    - grouper
     - importas
+    - interfacebloat
+    # - ireturn # Does not support generics, see https://github.com/butuzov/ireturn/issues/39.
     - lll
+    - loggercheck
+    - maintidx
     - makezero
     - misspell
+    # - musttag # Will be enabled in 1.51.
     - nakedret
     - nestif
+    - nilerr
+    - nilnil
     - nlreturn
     - noctx
-    - nolintlint
+    # - nolintlint # Let's keed nolintlint if we decide to add it.
+    # - nonamedreturns # This linter does not make any sense.
+    - nosprintfhostport
     - paralleltest
     - prealloc
     - predeclared
     - promlinter
+    - reassign
     - revive
     - rowserrcheck
     - sqlclosecheck
     - stylecheck
     - tagliatelle
+    - tenv
+    - testableexamples
     - testpackage
     - thelper
     - tparallel
     - unconvert
     - unparam
+    - usestdlibvars
+    - varnamelen
     - wastedassign
     - whitespace
     - wrapcheck
     - wsl
-
 issues:
     exclude-rules:
       - path: _test\.go
         linters:
-        - gocyclo
-        - funlen
-        - goerr113
-        - dupl
-        - exhaustivestruct
+          - dupl
+          - funlen
+          - dupword
+      - path: doc\.go
+        linters:
+          - lll
+      - path: constraints\/constraints_test\.go
+        linters:
+          - gocritic
+          - wsl
+          - gochecknoglobals
+          - varnamelen
+          - gosec
+          - cyclop
+          - unconvert
+          - paralleltest
+          - tparallel
+          - unused
+
+# golangci.com configuration
+# https://github.com/golangci/golangci/wiki/Configuration
+service:
+  golangci-lint-version: 1.51.x # use the fixed version to not introduce new linters unexpectedly

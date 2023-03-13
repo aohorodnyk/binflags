@@ -9,7 +9,8 @@
 [![Codecov](https://codecov.io/gh/aohorodnyk/binflags/branch/main/graph/badge.svg?token=61SCDABJJ0)](https://codecov.io/gh/aohorodnyk/binflags) ![Test](https://github.com/aohorodnyk/binflags/workflows/Test/badge.svg) ![Lint](https://github.com/aohorodnyk/binflags/workflows/Lint/badge.svg)
 
 ## Golang 1.18
-If you use Golang version 1.18 and above, I'll suggest to use [binflags](https://pkg.go.dev/github.com/aohorodnyk/stl/collections/binflags) package from [STL](https://pkg.go.dev/github.com/aohorodnyk/stl) library.
+
+The package was built to use Go 1.18 with generics. If you need older version, see please the version [v0.0.3](https://github.com/aohorodnyk/binflags/releases/tag/v0.0.3).
 
 ## Motivation
 There are number of needs to implement bitset for various types, and some "Big Flags" implementation through map or array of INTs.
@@ -36,7 +37,7 @@ There are known limitations:
 ### Examples in unit tests
 Full list of examples can be found in `*_test.go` files. This library has coverage ~100%, and I'm gonna keep the level.
 
-### Check has flag in base types 
+### Check has flag in base types
 ```go
 package main
 
