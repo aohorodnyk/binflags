@@ -10,6 +10,12 @@ var (
 	_ binflags.Flags = &binflags.Fixed[int]{}
 	_ binflags.Flags = &binflags.Fixed[uint]{}
 	_ binflags.Flags = &binflags.Fixed[uint16]{}
+	_ binflags.Flags = &binflags.Fixed[uint32]{}
+	_ binflags.Flags = &binflags.Fixed[uint64]{}
+	_ binflags.Flags = &binflags.Fixed[uint]{}
+	_ binflags.Flags = &binflags.Fixed[int]{}
+	_ binflags.Flags = &binflags.Fixed[int64]{}
+	_ binflags.Flags = &binflags.Fixed[int32]{}
 	_ binflags.Flags = &binflags.Fixed[int16]{}
 	_ binflags.Flags = &binflags.Fixed[int8]{}
 	_ binflags.Flags = &binflags.Fixed[byte]{}

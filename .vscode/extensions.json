@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "EditorConfig.EditorConfig",
+    "golang.go",
+    "aaron-bond.better-comments",
+    "k--kato.intellij-idea-keybindings",
+    "DavidAnson.vscode-markdownlint",
+    "yzhang.markdown-all-in-one",
+    "wayou.vscode-todo-highlight",
+    "VisualStudioExptTeam.intellicode-api-usage-examples",
+    "VisualStudioExptTeam.vscodeintellicode"
+  ]
+}
